@@ -1,8 +1,23 @@
+/* ==========================================================================
+ * @file    : face_detect.c
+ *
+ * @description : This file contains main program.
+ *
+ * @author  : Aman Kumar (2015)
+ *
+ * @copyright   : The code contained herein is licensed under the GNU General
+ *				Public License. You may obtain a copy of the GNU General
+ *				Public License Version 2 or later at the following locations:
+ *              http://www.opensource.org/licenses/gpl-license.html
+ *              http://www.gnu.org/copyleft/gpl.html
+ * ========================================================================*/
+
+
 #include <opencv2/objdetect/objdetect.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <iostream>
-#include <stdio.h>
+#include <cstdio>
 
 using namespace std;
 using namespace cv;
@@ -16,7 +31,7 @@ int main( int argc, char** argv)
 	vector<Rect> faces;
 	CascadeClassifier face_cascade;
 	int c, i;
-	int vid_dev = 0;
+	int vid_dev = 0;/* default device */
 
 	for(i = 1; i < argc ; ++i) {
 		if(strcmp(argv[i], "-d") == 0) {
@@ -30,9 +45,11 @@ int main( int argc, char** argv)
 	capture = cvCaptureFromCAM(vid_dev);
 	if(capture) {
 		for(;;) {
+			/* query a frame */
 			frame = cvQueryFrame(capture);
 
 			if(!frame.empty()) {
+				/* gray conversion */
 				cvtColor(frame, frame_gray, CV_BGR2GRAY);
 				equalizeHist(frame_gray, frame_gray);
 				face_cascade.detectMultiScale(frame_gray, faces,
