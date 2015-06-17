@@ -1,5 +1,5 @@
 /* ==========================================================================
- * @file    : face_detect.c
+ * @file    : face_detect.cpp
  *
  * @description : This file contains main program.
  *
@@ -39,9 +39,11 @@ int main( int argc, char** argv)
 		}
 	}
 
-	if(!face_cascade.load("data/face_detect.xml")) {
+	/* frontal face detection */
+	if(!face_cascade.load("data/face_detect_frontal.xml")) {
 		return -1;
 	}
+
 	capture = cvCaptureFromCAM(vid_dev);
 	if(capture) {
 		for(;;) {
